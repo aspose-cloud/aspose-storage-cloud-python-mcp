@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aspose-storage-core-mcp"
+# Sprint 11 real API migration: a real, breaking change to every core function's own Python
+# signature (a new required `product` parameter — the real v4.0 endpoint genuinely requires it,
+# since a standalone, product-less storage route no longer exists at all) and to the auth/base-URL
+# internals (v1.1 -> v4.0, /oauth2/token -> /connect/token). 0.1.0 -> 1.0.0, not a patch/minor bump.
+# 1.0.0 -> 1.1.0 (this session): a new, optional `base_url` parameter on each core-4 function
+# (default preserves 1.0.0's exact behavior) — real, additive, needed because Slides' real API is
+# `v3.0`, not `v4.0` like every other product, and this shared package can no longer bake one single
+# base URL in at module-load time for every consuming product.
+version = "1.1.1"
+description = "Core Aspose Cloud Storage MCP tools (upload/download/list/delete) — a genuinely separate, installable dependency for every other Aspose Cloud MCP product server (PRD Section 2.6, FR8g)."
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "mcp>=2.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
